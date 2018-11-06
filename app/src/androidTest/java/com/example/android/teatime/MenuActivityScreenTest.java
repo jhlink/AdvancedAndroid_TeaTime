@@ -17,11 +17,28 @@
 package com.example.android.teatime;
 
 import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.AndroidJUnitRunner;
 import android.view.Menu;
+import android.view.View;
 
+import com.example.android.teatime.model.Tea;
+
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static android.support.test.espresso.Espresso.onData;
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.IsInstanceOf.instanceOf;
 
 /**
  * This test demos a user clicking on a GridView item in MenuActivity which opens up the
@@ -34,7 +51,7 @@ import org.junit.runner.RunWith;
 
 
 // DONE (1) Add annotation to specify AndroidJUnitRunner class as the default test runner
-    @RunWith(AndroidJUnitRunner.class)
+    @RunWith(AndroidJUnit4.class)
 public class MenuActivityScreenTest {
 
     // DONE (2) Add the rule that provides functional testing of a single activity
@@ -43,10 +60,16 @@ public class MenuActivityScreenTest {
             new ActivityTestRule<>(MenuActivity.class);
 
 
-    // TODO (3) Finish writing this test which will click on a gridView Tea item and verify that
+    // DONE (3) Finish writing this test which will click on a gridView Tea item and verify that
     // the OrderActivity opens up with the correct tea name displayed.
-
+    @Test
     public void clickGridViewItem_OpensOrderActivity() {
+        onData(is(instanceOf(Tea.class)))
+                .atPosition(1)
+                .perform(click());
+
+        onView(withId(R.id.tea_name_text_view))
+                .check(matches(withText(containsString("Green Tea"))));
 
     }
 
