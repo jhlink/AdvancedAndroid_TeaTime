@@ -17,6 +17,7 @@
 package com.example.android.teatime;
 
 
+import android.support.test.espresso.Espresso;
 import android.support.test.espresso.IdlingResource;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -62,11 +63,12 @@ public class IdlingResourceMenuActivityTest {
     private IdlingResource mIdlingResource;
 
 
-    // TODO (6) Registers any resource that needs to be synchronized with Espresso before
+    // DONE (6) Registers any resource that needs to be synchronized with Espresso before
     // the test is run.
     @Before
     public void registerIdlingResource() {
-
+        mIdlingResource = (IdlingResource) mActivityTestRule.getActivity().getSimpleIdlingResource();
+        Espresso.registerIdlingResources(mIdlingResource);
     }
 
     // TODO (7) Test that the gridView with Tea objects appears and we can click a gridView item
