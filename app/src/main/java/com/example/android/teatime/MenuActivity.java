@@ -70,8 +70,7 @@ public class MenuActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        SimpleIdlingResource idlingResource = getSimpleIdlingResource();
-        ImageDownloader.downloadImage(getApplicationContext(), this, idlingResource);
+        ImageDownloader.downloadImage(getApplicationContext(), this, simpleIdlingResource);
     }
 
     @Override
@@ -111,6 +110,8 @@ public class MenuActivity extends AppCompatActivity
                 startActivity(mTeaIntent);
             }
         });
+
+        getSimpleIdlingResource();
     }
 
     // DONE (5) Override onDone so when the thread in ImageDownloader is finished, it returns an
