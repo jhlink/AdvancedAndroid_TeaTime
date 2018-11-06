@@ -34,6 +34,7 @@ public class MenuActivity extends AppCompatActivity
     implements ImageDownloader.DelayerCallback {
 
     Intent mTeaIntent;
+    TeaMenuAdapter teaMenuAdapter;
 
     public final static String EXTRA_TEA_NAME = "com.example.android.teatime.EXTRA_TEA_NAME";
 
@@ -87,8 +88,8 @@ public class MenuActivity extends AppCompatActivity
         // Create a {@link TeaAdapter}, whose data source is a list of {@link Tea}s.
         // The adapter know how to create grid items for each item in the list.
         GridView gridview = (GridView) findViewById(R.id.tea_grid_view);
-        TeaMenuAdapter adapter = new TeaMenuAdapter(this, R.layout.grid_item_layout, teas);
-        gridview.setAdapter(adapter);
+        teaMenuAdapter = new TeaMenuAdapter(this, R.layout.grid_item_layout, teas);
+        gridview.setAdapter(teaMenuAdapter);
 
 
         // Set a click listener on that View
@@ -106,10 +107,12 @@ public class MenuActivity extends AppCompatActivity
         });
     }
 
-    // TODO (5) Override onDone so when the thread in ImageDownloader is finished, it returns an
+    // DONE (5) Override onDone so when the thread in ImageDownloader is finished, it returns an
     // ArrayList of Tea objects via the callback.
     @Override
     public void onDone(ArrayList<Tea> teas) {
-
+        teaMenuAdapter.notifyDataSetInvalidated();
+        teaMenuAdapter.addAll(teas);
+        teaMenuAdapter.notifyDataSetChanged();
     }
 }
