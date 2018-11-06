@@ -18,6 +18,9 @@ package com.example.android.teatime;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -39,6 +42,7 @@ public class MenuActivity extends AppCompatActivity
     public final static String EXTRA_TEA_NAME = "com.example.android.teatime.EXTRA_TEA_NAME";
 
     // DONE (2) Add a SimpleIdlingResource variable that will be null in production
+    @Nullable
     SimpleIdlingResource simpleIdlingResource = null;
 
     /**
@@ -46,6 +50,8 @@ public class MenuActivity extends AppCompatActivity
      * instantiate a new instance of SimpleIdlingResource if the IdlingResource is null.
      * This method will only be called from test.
      */
+    @VisibleForTesting
+    @NonNull
     public SimpleIdlingResource getSimpleIdlingResource() {
         if ( simpleIdlingResource == null ) {
             simpleIdlingResource = new SimpleIdlingResource();
