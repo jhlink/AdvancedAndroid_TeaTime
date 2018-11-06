@@ -16,17 +16,33 @@
 
 package com.example.android.teatime;
 
-// TODO (1) Add annotation to specify AndroidJUnitRunner class as the default test runner
+import android.app.Activity;
+import android.app.Instrumentation;
+import android.support.test.espresso.intent.rule.IntentsTestRule;
+import android.support.test.runner.AndroidJUnit4;
+
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import static android.support.test.espresso.intent.Intents.intending;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.isInternal;
+import static org.hamcrest.core.IsNot.not;
+
+// DONE (1) Add annotation to specify AndroidJUnitRunner class as the default test runner
+@RunWith(AndroidJUnit4)
 public class OrderSummaryActivityTest {
 
-    // TODO (2) Add the rule that indicates we want to use Espresso-Intents APIs in functional UI tests
+    // DONE (2) Add the rule that indicates we want to use Espresso-Intents APIs in functional UI tests
+    @Rule
+    public IntentsTestRule<OrderSummaryActivity> orderSummaryActivityIntentsTestRule =
+            new IntentsTestRule<>(OrderSummaryActivity.class);
 
-
-    // TODO (3) Finish this method which runs before each test and will stub all external
+    // DONE (3) Finish this method which runs before each test and will stub all external
     // intents so all external intents will be blocked
-
+    @Test
     public void stubAllExternalIntents() {
-
+        intending(not(isInternal())).respondWith(new Instrumentation.ActivityResult(Activity.RESULT_OK, null));
     }
 
 
