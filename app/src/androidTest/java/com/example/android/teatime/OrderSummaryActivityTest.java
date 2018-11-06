@@ -34,13 +34,17 @@ import static android.support.test.espresso.intent.Intents.intending;
 import static android.support.test.espresso.intent.matcher.ComponentNameMatchers.hasShortClassName;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasAction;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.isInternal;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsNot.not;
 
 // DONE (1) Add annotation to specify AndroidJUnitRunner class as the default test runner
 @RunWith(AndroidJUnit4.class)
 public class OrderSummaryActivityTest {
+
+    private static final String emailMessage = "I just ordered some awesome tea!!";
 
     // DONE (2) Add the rule that indicates we want to use Espresso-Intents APIs in functional UI tests
     @Rule
@@ -63,5 +67,15 @@ public class OrderSummaryActivityTest {
                 .perform(click());
 
         intended(hasAction(Intent.ACTION_SENDTO));
+    }
+
+    @Test
+    public void instructor_ClickSendEmailButton_SendsEmail() {
+        onView(withId(R.id.send_email_button))
+                .perform(click());
+
+        intended(allOf(
+                hasAction(Intent.ACTION_SENDTO),
+                hasExtra(Intent.EXTRA_TEXT, emailMessage)));
     }
 }
