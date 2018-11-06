@@ -28,8 +28,9 @@ import com.example.android.teatime.model.Tea;
 
 import java.util.ArrayList;
 
-// TODO (1) Implement ImageDownloader.DelayerCallback
-public class MenuActivity extends AppCompatActivity {
+// DONE (1) Implement ImageDownloader.DelayerCallback
+public class MenuActivity extends AppCompatActivity
+    implements ImageDownloader.DelayerCallback {
 
     Intent mTeaIntent;
 
@@ -94,5 +95,10 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(mTeaIntent);
             }
         });
+    }
+
+    @Override
+    public void onDone(ArrayList<Tea> teas) {
+
     }
 }
