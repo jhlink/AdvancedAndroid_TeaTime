@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.example.android.teatime.IdlingResource.SimpleIdlingResource;
 import com.example.android.teatime.model.Tea;
 
 import java.util.ArrayList;
@@ -36,14 +37,20 @@ public class MenuActivity extends AppCompatActivity
 
     public final static String EXTRA_TEA_NAME = "com.example.android.teatime.EXTRA_TEA_NAME";
 
-    // TODO (2) Add a SimpleIdlingResource variable that will be null in production
+    // DONE (2) Add a SimpleIdlingResource variable that will be null in production
+    SimpleIdlingResource simpleIdlingResource = null;
 
     /**
-     * TODO (3) Create a method that returns the IdlingResource variable. It will
+     * DONE (3) Create a method that returns the IdlingResource variable. It will
      * instantiate a new instance of SimpleIdlingResource if the IdlingResource is null.
      * This method will only be called from test.
      */
-
+    public SimpleIdlingResource getSimpleIdlingResource() {
+        if ( simpleIdlingResource == null ) {
+            simpleIdlingResource = new SimpleIdlingResource();
+        }
+        return simpleIdlingResource;
+    }
 
     /**
      * TODO (4) Using the method you created, get the IdlingResource variable.
