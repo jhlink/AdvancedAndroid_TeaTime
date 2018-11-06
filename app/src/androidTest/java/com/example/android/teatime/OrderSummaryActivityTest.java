@@ -39,7 +39,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.core.IsNot.not;
 
 // DONE (1) Add annotation to specify AndroidJUnitRunner class as the default test runner
-@RunWith(AndroidJUnit4)
+@RunWith(AndroidJUnit4.class)
 public class OrderSummaryActivityTest {
 
     // DONE (2) Add the rule that indicates we want to use Espresso-Intents APIs in functional UI tests
