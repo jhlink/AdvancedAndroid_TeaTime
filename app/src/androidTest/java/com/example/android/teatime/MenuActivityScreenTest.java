@@ -36,6 +36,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
@@ -54,6 +55,8 @@ import static org.hamcrest.core.IsInstanceOf.instanceOf;
     @RunWith(AndroidJUnit4.class)
 public class MenuActivityScreenTest {
 
+        public static final String GREEN_TEA = "Green Tea";
+
     // DONE (2) Add the rule that provides functional testing of a single activity
     @Rule
     public ActivityTestRule<MenuActivity> menuActivityActivityTestRule =
@@ -69,8 +72,19 @@ public class MenuActivityScreenTest {
                 .perform(click());
 
         onView(withId(R.id.tea_name_text_view))
-                .check(matches(withText(containsString("Green Tea"))));
+                .check(matches(withText(containsString(GREEN_TEA))));
 
+    }
+
+    @Test
+    public void instructor_ClickGridViewItemOpensOrderActivity() {
+        onData(anything())
+                .inAdapterView(withId(R.id.tea_grid_view))
+                .atPosition(1)
+                .perform(click());
+
+        onView(withId(R.id.tea_name_text_view))
+                .check(matches(withText(GREEN_TEA)));
     }
 
 }
