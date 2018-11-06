@@ -77,9 +77,11 @@ public class IdlingResourceMenuActivityTest {
 
     }
 
-    // TODO (8) Unregister resources when not needed to avoid malfunction
+    // DONE (8) Unregister resources when not needed to avoid malfunction
     @After
     public void unregisterIdlingResource() {
-
+        if ( mIdlingResource != null ) {
+            Espresso.unregisterIdlingResources(mIdlingResource);
+        }
     }
 }
