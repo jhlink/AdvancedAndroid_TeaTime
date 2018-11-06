@@ -53,17 +53,19 @@ public class MenuActivity extends AppCompatActivity
     }
 
     /**
-     * TODO (4) Using the method you created, get the IdlingResource variable.
+     * DONE (4) Using the method you created, get the IdlingResource variable.
      * Then call downloadImage from ImageDownloader. To ensure there's enough time for IdlingResource
      * to be initialized, remember to call downloadImage in either onStart or onResume.
      * This is because @Before in Espresso Tests is executed after the activity is created in
      * onCreate, so there might not be enough time to register the IdlingResource if the download is
      * done too early.
      */
-
-
-    // TODO (5) Override onDone so when the thread in ImageDownloader is finished, it returns an
-    // ArrayList of Tea objects via the callback.
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SimpleIdlingResource idlingResource = getSimpleIdlingResource();
+        ImageDownloader.downloadImage(getApplicationContext(), this, idlingResource);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +106,8 @@ public class MenuActivity extends AppCompatActivity
         });
     }
 
+    // TODO (5) Override onDone so when the thread in ImageDownloader is finished, it returns an
+    // ArrayList of Tea objects via the callback.
     @Override
     public void onDone(ArrayList<Tea> teas) {
 
