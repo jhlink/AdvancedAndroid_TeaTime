@@ -21,6 +21,7 @@ import android.app.Instrumentation;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,7 +41,7 @@ public class OrderSummaryActivityTest {
 
     // DONE (3) Finish this method which runs before each test and will stub all external
     // intents so all external intents will be blocked
-    @Test
+    @Before
     public void stubAllExternalIntents() {
         intending(not(isInternal())).respondWith(new Instrumentation.ActivityResult(Activity.RESULT_OK, null));
     }
