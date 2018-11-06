@@ -21,12 +21,22 @@ import android.support.test.espresso.Espresso;
 import android.support.test.espresso.IdlingResource;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.LargeTest;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static android.support.test.espresso.Espresso.onData;
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.example.android.teatime.MenuActivityScreenTest.TEA_NAME;
+import static org.hamcrest.CoreMatchers.anything;
 
 /**
  * Usually Espresso syncs all view operations with the UI thread as well as AsyncTasks, but it can't
@@ -46,6 +56,7 @@ import org.junit.runner.RunWith;
 
 
 @RunWith(AndroidJUnit4.class)
+@LargeTest
 public class IdlingResourceMenuActivityTest {
 
     /**
@@ -71,10 +82,15 @@ public class IdlingResourceMenuActivityTest {
         Espresso.registerIdlingResources(mIdlingResource);
     }
 
-    // TODO (7) Test that the gridView with Tea objects appears and we can click a gridView item
+    // DONE (7) Test that the gridView with Tea objects appears and we can click a gridView item
     @Test
     public void idlingResourceTest() {
+        //onData(is(instanceOf(Tea.class)))
+        //        .check(withId(R.id.grid_item_layout).)
 
+        onData(anything()).inAdapterView(withId(R.id.tea_grid_view)).atPosition(1).perform(click());
+
+        onView(withId(R.id.tea_name_text_view)).check(matches(withText(TEA_NAME)));
     }
 
     // DONE (8) Unregister resources when not needed to avoid malfunction
